@@ -712,7 +712,7 @@ You are free to:
 
 [![Portfolio](https://img.shields.io/badge/🌐_Portfolio-Visit-0ea5e9?style=for-the-badge)](https://highptest1-36.github.io/myself_web)
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-181717?style=for-the-badge&logo=github)](https://github.com/highptest1-36)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/caophuc)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0077B5?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/phucha04/)
 [![Email](https://img.shields.io/badge/Email-Contact-D14836?style=for-the-badge&logo=gmail)](mailto:caophuc@example.com)
 
 </div>

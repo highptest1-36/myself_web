@@ -10,7 +10,7 @@ import Image from "next/image";
 const Hero = () => {
   const socialLinks = [
     { icon: FaGithub, href: "https://github.com/highptest1-36", label: "GitHub" },
-    { icon: FaLinkedin, href: "https://linkedin.com/in/caophuc", label: "LinkedIn" },
+    { icon: FaLinkedin, href: "https://www.linkedin.com/in/phucha04/", label: "LinkedIn" },
     { icon: FaGoogle, href: "https://scholar.google.com", label: "Google Scholar" },
     { icon: HiMail, href: "mailto:caophuc@example.com", label: "Email" },
   ];

@@ -140,46 +140,88 @@ export default function SkillsChart() {
             className="space-y-8"
           >
             {/* Radar Chart Visualization */}
-            <motion.div variants={itemVariants} className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl">
-              <h3 className="text-2xl font-bold mb-6 text-center">Skills Overview</h3>
+            <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 rounded-2xl p-8 shadow-2xl">
+              <h3 className="text-2xl font-bold mb-6 text-center text-white">Skills Overview</h3>
               <div className="relative w-full max-w-2xl mx-auto aspect-square">
                 <svg viewBox="0 0 400 400" className="w-full h-full">
-                  {/* Background circles */}
+                  {/* Animated background circles with glow */}
                   {[80, 160, 240, 320].map((r, i) => (
-                    <circle
-                      key={i}
-                      cx="200"
-                      cy="200"
-                      r={r}
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1"
-                      className="text-gray-300 dark:text-gray-600"
-                      opacity="0.3"
-                    />
+                    <g key={i}>
+                      <motion.circle
+                        cx="200"
+                        cy="200"
+                        r={r}
+                        fill="none"
+                        stroke={`rgba(59, 130, 246, ${0.3 - i * 0.05})`}
+                        strokeWidth="2"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ delay: i * 0.1, duration: 0.8 }}
+                      />
+                      <motion.circle
+                        cx="200"
+                        cy="200"
+                        r={r}
+                        fill="none"
+                        stroke={`rgba(59, 130, 246, 0.5)`}
+                        strokeWidth="1"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={{ 
+                          scale: [1, 1.02, 1],
+                          opacity: [0.3, 0.6, 0.3]
+                        }}
+                        transition={{ 
+                          delay: i * 0.1,
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      />
+                    </g>
                   ))}
                   
-                  {/* Skill lines from center */}
+                  {/* Skill lines from center with gradient */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
                     const x = 200 + Math.cos(angle) * 320;
                     const y = 200 + Math.sin(angle) * 320;
                     return (
-                      <line
+                      <motion.line
                         key={i}
                         x1="200"
                         y1="200"
                         x2={x}
                         y2={y}
-                        stroke="currentColor"
-                        strokeWidth="1"
-                        className="text-gray-300 dark:text-gray-600"
-                        opacity="0.3"
+                        stroke="url(#lineGradient)"
+                        strokeWidth="2"
+                        opacity="0.4"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ delay: i * 0.1, duration: 0.8 }}
                       />
                     );
                   })}
                   
-                  {/* Skill polygon */}
+                  {/* Animated skill polygon with glow effect */}
+                  <defs>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <linearGradient id="polyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+                      <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
+                      <stop offset="100%" stopColor="#ec4899" stopOpacity="0.8" />
+                    </linearGradient>
+                    <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#3b82f6" />
+                      <stop offset="100%" stopColor="#8b5cf6" />
+                    </linearGradient>
+                  </defs>
+                  
                   <motion.polygon
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
@@ -188,58 +230,126 @@ export default function SkillsChart() {
                       const y = 200 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
-                    fill="url(#gradient)"
-                    stroke="#3b82f6"
-                    strokeWidth="2"
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.6 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
+                    fill="url(#polyGradient)"
+                    stroke="#60a5fa"
+                    strokeWidth="3"
+                    filter="url(#glow)"
+                    initial={{ scale: 0, opacity: 0, rotate: -180 }}
+                    animate={{ 
+                      scale: 1, 
+                      opacity: 1, 
+                      rotate: 0 
+                    }}
+                    transition={{ duration: 1.2, ease: "easeOut" }}
                   />
                   
-                  {/* Skill points */}
+                  {/* Animated skill points with pulse effect */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
                     const r = (skill.value / 100) * 320;
                     const x = 200 + Math.cos(angle) * r;
                     const y = 200 + Math.sin(angle) * r;
                     return (
-                      <motion.circle
-                        key={i}
-                        cx={x}
-                        cy={y}
-                        r="6"
-                        fill="#3b82f6"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: i * 0.1, duration: 0.3 }}
-                      />
+                      <g key={i}>
+                        <motion.circle
+                          cx={x}
+                          cy={y}
+                          r="12"
+                          fill="#3b82f6"
+                          opacity="0.3"
+                          initial={{ scale: 0 }}
+                          animate={{ 
+                            scale: [1, 1.5, 1],
+                            opacity: [0.3, 0, 0.3]
+                          }}
+                          transition={{ 
+                            delay: i * 0.15,
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        />
+                        <motion.circle
+                          cx={x}
+                          cy={y}
+                          r="8"
+                          fill="#60a5fa"
+                          filter="url(#glow)"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: i * 0.15, duration: 0.5 }}
+                          whileHover={{ scale: 1.3 }}
+                        />
+                        <motion.circle
+                          cx={x}
+                          cy={y}
+                          r="4"
+                          fill="#fff"
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ delay: i * 0.15 + 0.2, duration: 0.3 }}
+                        />
+                      </g>
                     );
                   })}
                   
-                  {/* Skill labels */}
+                  {/* Skill labels with percentage and enhanced styling */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const x = 200 + Math.cos(angle) * 360;
-                    const y = 200 + Math.sin(angle) * 360;
+                    const labelR = 360;
+                    const x = 200 + Math.cos(angle) * labelR;
+                    const y = 200 + Math.sin(angle) * labelR;
                     return (
-                      <text
-                        key={i}
-                        x={x}
-                        y={y}
-                        textAnchor="middle"
-                        className="text-sm font-semibold fill-current text-gray-700 dark:text-gray-300"
-                      >
-                        {skill.skill}
-                      </text>
+                      <g key={i}>
+                        <motion.text
+                          x={x}
+                          y={y}
+                          textAnchor="middle"
+                          className="text-sm font-bold fill-white"
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: i * 0.15 + 0.5, duration: 0.5 }}
+                        >
+                          {skill.skill}
+                        </motion.text>
+                        <motion.text
+                          x={x}
+                          y={y + 15}
+                          textAnchor="middle"
+                          className="text-xs font-semibold fill-cyan-400"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: i * 0.15 + 0.7, duration: 0.5 }}
+                        >
+                          {skill.value}%
+                        </motion.text>
+                      </g>
                     );
                   })}
                   
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#3b82f6" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
+                  {/* Center circle with glow */}
+                  <motion.circle
+                    cx="200"
+                    cy="200"
+                    r="20"
+                    fill="url(#polyGradient)"
+                    filter="url(#glow)"
+                    initial={{ scale: 0 }}
+                    animate={{ 
+                      scale: [1, 1.1, 1],
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                  <circle
+                    cx="200"
+                    cy="200"
+                    r="10"
+                    fill="#fff"
+                  />
                 </svg>
               </div>
             </motion.div>

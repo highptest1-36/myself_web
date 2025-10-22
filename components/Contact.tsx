@@ -67,7 +67,7 @@ const Contact = () => {
     {
       icon: FaLinkedin,
       name: "LinkedIn",
-      link: "https://linkedin.com/in/caophuc",
+      link: "https://www.linkedin.com/in/phucha04/",
       color: "hover:bg-blue-600",
     },
     {
