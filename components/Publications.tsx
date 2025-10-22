@@ -33,17 +33,6 @@ const Publications = () => {
       link: "#",
       icon: FaUniversity,
     },
-    {
-      title: "Agent–Trading–Forex (ATF): A LLM Orchestrated Multi-Model Architecture for Intelligent and Adaptive Forex Trading",
-      conference: "Research Festival 2025",
-      publisher: "Top 5 - Final Round",
-      location: "Quy Nhon",
-      date: "June 2025 – August 2025",
-      description: "LLM-based multi-agent system for intelligent forex trading with adaptive strategies.",
-      tags: ["LLM", "Agent Systems", "Finance"],
-      link: "#",
-      icon: FaBook,
-    },
   ];
 
   const containerVariants = {
