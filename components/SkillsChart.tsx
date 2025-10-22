@@ -18,17 +18,19 @@ export default function SkillsChart() {
   // Technical Skills với phần trăm thành thạo
   const technicalSkills = [
     { name: 'Python', level: 95, icon: <FaPython />, color: 'from-blue-500 to-yellow-500' },
+    { name: 'HTML/CSS', level: 88, icon: <FaCode />, color: 'from-orange-500 to-red-500' },
+    { name: 'JavaScript', level: 85, icon: <FaCode />, color: 'from-yellow-500 to-yellow-400' },
     { name: 'PyTorch', level: 90, icon: <SiPytorch />, color: 'from-red-500 to-orange-500' },
     { name: 'TensorFlow', level: 85, icon: <SiTensorflow />, color: 'from-orange-500 to-yellow-500' },
-    { name: 'OpenCV', level: 88, icon: <SiOpencv />, color: 'from-green-500 to-blue-500' },
-    { name: 'C/C++', level: 82, icon: <SiCplusplus />, color: 'from-blue-600 to-blue-400' },
-    { name: 'ROS/ROS2', level: 80, icon: <SiRos />, color: 'from-blue-500 to-cyan-500' },
-    { name: 'Deep Learning', level: 92, icon: <FaBrain />, color: 'from-purple-500 to-pink-500' },
+    { name: 'Scikit-learn', level: 85, icon: <FaCode />, color: 'from-orange-400 to-red-400' },
+    { name: 'FastAPI', level: 82, icon: <FaCode />, color: 'from-green-500 to-teal-500' },
+    { name: 'Docker', level: 78, icon: <SiDocker />, color: 'from-blue-500 to-cyan-400' },
+    { name: 'Git', level: 88, icon: <SiGit />, color: 'from-orange-500 to-red-500' },
+    { name: 'Google Cloud', level: 80, icon: <FaCloud />, color: 'from-blue-400 to-blue-600' },
+    { name: 'Jetson (Nano/Orin)', level: 88, icon: <FaMicrochip />, color: 'from-green-600 to-green-400' },
     { name: 'Computer Vision', level: 90, icon: <FaChartLine />, color: 'from-cyan-500 to-blue-500' },
-    { name: 'NLP & LLM', level: 85, icon: <FaCode />, color: 'from-indigo-500 to-purple-500' },
-    { name: 'Embedded Systems', level: 83, icon: <FaMicrochip />, color: 'from-gray-600 to-gray-400' },
-    { name: 'Docker & DevOps', level: 78, icon: <SiDocker />, color: 'from-blue-500 to-cyan-400' },
-    { name: 'Git & GitHub', level: 88, icon: <SiGit />, color: 'from-orange-500 to-red-500' },
+    { name: 'NLP', level: 85, icon: <FaBrain />, color: 'from-indigo-500 to-purple-500' },
+    { name: 'Deep Learning', level: 92, icon: <FaBrain />, color: 'from-purple-500 to-pink-500' },
   ];
 
   // Academic Achievements
@@ -405,23 +407,23 @@ export default function SkillsChart() {
             </motion.div>
 
             {/* Skills Progress Bars */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
               {technicalSkills.map((skill, index) => (
                 <motion.div
                   key={skill.name}
                   variants={itemVariants}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow"
+                  className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-lg hover:shadow-xl transition-shadow h-full"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-3">
-                      <div className={`text-3xl bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}>
+                      <div className={`text-2xl bg-gradient-to-r ${skill.color} bg-clip-text text-transparent`}>
                         {skill.icon}
                       </div>
-                      <span className="font-semibold text-gray-800 dark:text-gray-200">
+                      <span className="font-semibold text-gray-800 dark:text-gray-200 text-sm">
                         {skill.name}
                       </span>
                     </div>
-                    <span className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">
+                    <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">
                       {skill.level}%
                     </span>
                   </div>

@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   description: "AI Engineering student specializing in computer vision, NLP, and embedded systems. Building intelligent systems that bridge deep learning and control theory.",
   keywords: "AI Engineer, Robotics, Computer Vision, NLP, Deep Learning, Autonomous Systems",
   authors: [{ name: "Cao Phúc Hà" }],
+  icons: {
+    icon: '/favicon.ico',
+  },
   openGraph: {
     title: "Cao Phúc Hà - AI & Robotics Researcher",
     description: "Building intelligent systems that bridge deep learning and control theory",

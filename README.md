@@ -1,12 +1,227 @@
-# 🚀 AI & Robotics Portfolio Website# 🚀 AI & Robotics Portfolio Website
+# 🚀 Portfolio Website - Cao Phúc Hà
 
+<div align="center">
 
+![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff69b4?style=for-the-badge&logo=framer)
 
-<div align="center"><div align="center">
+**Professional portfolio website for AI & Robotics Researcher**
 
+[🌐 Live Demo](https://highptest1-36.github.io/myself_web) | [📧 Contact](mailto:caophucai@gmail.com) | [💼 LinkedIn](https://www.linkedin.com/in/phucha04/)
 
+</div>
 
-![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+---
+
+## ✨ Features
+
+- 🎨 **Modern UI/UX** - Clean, professional design with gradient accents
+- 🌓 **Dark/Light Mode** - Theme switching with persistent preference
+- 🦋 **Interactive Butterflies** - Cute animated butterflies with drag & drop
+- 🌍 **Bilingual Support** - Vietnamese/English with Context API
+- 📧 **Contact Form** - EmailJS integration for direct messages
+- ⚡ **Performance Optimized** - Fast loading with Next.js 14
+- 📱 **Fully Responsive** - Perfect on mobile, tablet, and desktop
+- 🎭 **Smooth Animations** - Framer Motion for beautiful transitions
+
+---
+
+## � Sections
+
+1. **Hero** - Introduction with animated typing effect
+2. **About** - Skills, education timeline, and research focus
+3. **Skills** - Interactive skill bars and radar chart
+4. **Projects** - Featured AI/Robotics projects with demos
+5. **Publications** - Research papers (EIDT'25, RTIS'25)
+6. **Awards** - Hackathon wins and certifications
+7. **Contact** - Form, social links, and professional footer
+
+---
+
+## 🏗️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router, Static Export)
+- **UI Library**: React 18 with TypeScript
+- **Styling**: TailwindCSS 3.4
+- **Animations**: Framer Motion 11.2
+- **Icons**: React Icons
+- **Theme**: next-themes
+- **Email**: EmailJS
+- **Navigation**: react-scroll
+- **Deployment**: GitHub Pages / Vercel
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ and npm
+- Git
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/highptest1-36/myself_web.git
+cd myself_web
+
+# Install dependencies
+npm install
+
+# Create environment file
+cp .env.local.example .env.local
+# Add your EmailJS credentials to .env.local
+
+# Run development server
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 📦 Build & Deploy
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Deploy to GitHub Pages
+```bash
+npm run deploy
+```
+
+### Deploy to Vercel
+```bash
+npm install -g vercel
+vercel --prod
+```
+
+---
+
+## 📂 Project Structure
+
+```
+myself_web/
+├── app/
+│   ├── layout.tsx          # Root layout with providers
+│   ├── page.tsx            # Home page
+│   ├── globals.css         # Global styles
+│   ├── api/contact/        # Contact form API route
+│   └── icon.svg            # Favicon
+├── components/
+│   ├── Navbar.tsx          # Navigation with theme toggle
+│   ├── Hero.tsx            # Hero section
+│   ├── About.tsx           # About section
+│   ├── SkillsChart.tsx     # Skills visualization
+│   ├── Projects.tsx        # Projects showcase
+│   ├── Publications.tsx    # Research papers
+│   ├── Awards.tsx          # Achievements
+│   ├── Contact.tsx         # Contact form
+│   ├── MagicButterfly.tsx  # Animated butterflies
+│   ├── ButterflyControl.tsx # Butterfly & language controls
+│   └── ThemeProvider.tsx   # Dark mode provider
+├── contexts/
+│   ├── LanguageContext.tsx # Bilingual support
+│   └── ButterflyContext.tsx # Butterfly state
+├── public/
+│   ├── *.jpg               # Images for projects/awards
+│   ├── *.mp4               # Demo videos
+│   └── favicon.ico         # Site icon
+├── .env.local              # Environment variables (not committed)
+├── next.config.mjs         # Next.js config
+├── tailwind.config.ts      # Tailwind config
+└── package.json            # Dependencies
+```
+
+---
+
+## 🎨 Customization
+
+### Update Personal Info
+- `components/Hero.tsx` - Name, title, description
+- `components/Contact.tsx` - Email, phone, location
+- `components/About.tsx` - Bio, skills, education
+
+### Add/Edit Projects
+File: `components/Projects.tsx`
+```typescript
+const projects = [
+  {
+    title: "Your Project",
+    description: "Description",
+    tech: ["React", "Python"],
+    image: "/your-image.jpg",
+    github: "https://github.com/...",
+    demo: "https://...",
+  },
+];
+```
+
+### EmailJS Setup
+1. Create account at [emailjs.com](https://www.emailjs.com/)
+2. Create email service (Gmail/Outlook)
+3. Create template with variables: `{{name}}`, `{{email}}`, `{{message}}`
+4. Add credentials to `.env.local`:
+```bash
+EMAILJS_SERVICE_ID=your_service_id
+EMAILJS_TEMPLATE_ID=your_template_id
+EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+---
+
+## 🐛 Troubleshooting
+
+### Port in use
+```bash
+npm run dev -- -p 3001
+```
+
+### Images not loading
+- Place images in `public/` folder
+- Reference as `/image.jpg` (no `/public/` prefix)
+
+### Build errors
+```bash
+rm -rf .next node_modules
+npm install
+npm run build
+```
+
+---
+
+## 📧 Contact
+
+**Cao Phúc Hà** - AI & Robotics Researcher
+
+- 📧 Email: caophucai@gmail.com
+- 📱 Phone: +84 365 634 908
+- 💼 LinkedIn: [linkedin.com/in/phucha04](https://www.linkedin.com/in/phucha04/)
+- 🔗 GitHub: [github.com/highptest1-36](https://github.com/highptest1-36)
+- 📍 Location: Ho Chi Minh City, Vietnam
+
+---
+
+## 📄 License
+
+MIT License - Free to use, modify, and distribute
+
+---
+
+<div align="center">
+
+**© 2025 Cao Phúc Hà. All Rights Reserved.**
+
+*Bridging Deep Learning and Control Theory for Real-World Impact* 🤖✨
+
+Built with ❤️ using Next.js, TailwindCSS, and Framer Motion
+
+</div>
 
 ![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
 

@@ -10,12 +10,11 @@ const About = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const skills = {
-    "AI & ML": ["PyTorch", "TensorFlow", "Scikit-learn", "XGBoost", "LSTM"],
-    "Computer Vision": ["YOLO", "OpenCV", "Object Detection", "Lane Detection", "Image Segmentation"],
-    "NLP & LLM": ["RAG", "Transformers", "Gemini", "NanoLLM", "Agent Systems"],
-    "Embedded & Edge": ["Jetson Nano", "Jetson Orin", "Arduino", "STM32", "Raspberry Pi"],
-    "Cloud & DevOps": ["Docker", "Git", "Google Cloud", "AWS", "FastAPI"],
-    "Robotics": ["ROS2", "PX4", "Pixhawk", "Autonomous Systems", "Control Theory"],
+    "Language": ["Python", "HTML/CSS", "JavaScript"],
+    "Frameworks & Libraries": ["PyTorch", "TensorFlow", "Scikit-learn", "FastAPI"],
+    "Tools & Platforms": ["Docker", "Git", "Google Cloud", "JupyterLab", "Ubuntu", "Azure", "AWS"],
+    "Hardware": ["Jetson Nano", "Jetson Orin Nano", "Orange Pi", "STM32", "Arduino"],
+    "Expertise Areas": ["Computer Vision", "Natural Language Processing (NLP)", "Deep Learning", "Self-driving Algorithms"],
   };
 
   const timeline = [
@@ -53,8 +52,12 @@ const About = () => {
             About <span className="gradient-text">Me</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            AI & Robotics student with strong hands-on experience in computer vision, NLP, and embedded systems.
-            I build real-time AI applications on Jetson platforms for autonomous control, lane-keeping, and intelligent assistants.
+            AI & Robotics student with strong hands-on experience in computer vision, NLP, and embedded systems. 
+            I build real-time AI applications on Jetson platforms (Nano/Orin) for autonomous control, lane-keeping, 
+            and intelligent assistants, focusing on efficient, deployable systems that bridge research and practice 
+            to highlighting my work at the intersection of control theory and computer vision. I'm motivated to 
+            contribute to impactful robotics and embedded-AI projects while continually refining on-edge optimization 
+            and system integration skills.
           </p>
         </motion.div>
 

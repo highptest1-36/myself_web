@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 import { useButterfly } from "@/contexts/ButterflyContext";
 
 interface ButterflyState {
@@ -10,12 +10,24 @@ interface ButterflyState {
   y: number;
   rotation: number;
   scale: number;
+  vx: number; // velocity x
+  vy: number; // velocity y
+}
+
+interface MousePosition {
+  x: number;
+  y: number;
 }
 
 const MagicButterfly = () => {
   const { enabled, draggable } = useButterfly();
   const [butterflies, setButterflies] = useState<ButterflyState[]>([]);
   const [draggedButterfly, setDraggedButterfly] = useState<number | null>(null);
+  const [mousePos, setMousePos] = useState<MousePosition>({ x: 0, y: 0 });
+  const [hearts, setHearts] = useState<Array<{ id: number; x: number; y: number }>>([]);
+  const [trails, setTrails] = useState<Array<{ id: number; x: number; y: number; color: string }>>([]);
+  const heartIdRef = useRef(0);
+  const trailIdRef = useRef(0);
 
   useEffect(() => {
     if (!enabled) {
@@ -30,6 +42,8 @@ const MagicButterfly = () => {
       y: Math.random() * window.innerHeight,
       rotation: 0,
       scale: 1,
+      vx: 0,
+      vy: 0,
     }));
     setButterflies(initButterflies);
 
@@ -43,15 +57,15 @@ const MagicButterfly = () => {
           if (draggedButterfly === butterfly.id) return butterfly;
 
           const offset = index * 2;
-          const radius = 250 + index * 50;
+          const radius = 200 + index * 50;
           
-          // Each butterfly has its own wandering path
-          const x = Math.sin(time * 0.4 + offset) * radius + window.innerWidth / 2;
-          const y = Math.sin(time * 0.6 + offset) * 150 + Math.cos(time * 0.3 + offset) * 100 + window.innerHeight / 2;
+          // Simple circular motion
+          const x = Math.sin(time * 0.5 + offset) * radius + window.innerWidth / 2;
+          const y = Math.sin(time * 0.4 + offset) * 150 + Math.cos(time * 0.3 + offset) * 100 + window.innerHeight / 2;
           const rotation = Math.sin(time * 2 + offset) * 15;
           const scale = 0.8 + Math.sin(time * 3 + offset) * 0.2;
 
-          return { ...butterfly, x, y, rotation, scale };
+          return { ...butterfly, x, y, rotation, scale, vx: 0, vy: 0 };
         })
       );
 
@@ -333,6 +347,57 @@ const MagicButterfly = () => {
           </div>
         </motion.div>
       ))}
+
+      {/* Trails - Glowing path effect */}
+      <AnimatePresence>
+        {trails.map((trail) => (
+          <motion.div
+            key={trail.id}
+            className="fixed pointer-events-none z-40"
+            style={{
+              left: trail.x,
+              top: trail.y,
+              width: 8,
+              height: 8,
+            }}
+            initial={{ opacity: 0.8, scale: 1 }}
+            animate={{ opacity: 0, scale: 0.5 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5 }}
+          >
+            <div
+              className="w-full h-full rounded-full blur-sm"
+              style={{ backgroundColor: trail.color }}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      {/* Hearts - When butterflies get close */}
+      <AnimatePresence>
+        {hearts.map((heart) => (
+          <motion.div
+            key={heart.id}
+            className="fixed pointer-events-none z-40"
+            style={{
+              left: heart.x,
+              top: heart.y,
+              fontSize: '24px',
+            }}
+            initial={{ opacity: 1, scale: 0, y: 0 }}
+            animate={{ 
+              opacity: 0, 
+              scale: 1.5, 
+              y: -50,
+              rotate: [0, 10, -10, 0]
+            }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 2, ease: "easeOut" }}
+          >
+            💕
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </>
   );
 };

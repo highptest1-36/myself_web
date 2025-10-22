@@ -34,7 +34,7 @@ const translations: Record<Language, Record<string, string>> = {
     // About
     "about.title": "About Me",
     "about.subtitle": "Bridging Deep Learning and Control Theory",
-    "about.intro": "I'm a passionate AI Engineering student at Ho Chi Minh City University of Technology (VNU-HCM), specializing in Computer Vision, Natural Language Processing, and Robotics.",
+    "about.intro": "AI & Robotics student with strong hands-on experience in computer vision, NLP, and embedded systems. I build real-time AI applications on Jetson platforms (Nano/Orin) for autonomous control, lane-keeping, and intelligent assistants, focusing on efficient, deployable systems that bridge research and practice to highlighting my work at the intersection of control theory and computer vision. I'm motivated to contribute to impactful robotics and embedded-AI projects while continually refining on-edge optimization and system integration skills.",
     "about.experience": "Years of Experience",
     "about.projects": "Projects Completed",
     "about.publications": "Research Publications",
@@ -124,7 +124,7 @@ const translations: Record<Language, Record<string, string>> = {
     // About
     "about.title": "Về Tôi",
     "about.subtitle": "Kết Nối Deep Learning và Lý Thuyết Điều Khiển",
-    "about.intro": "Tôi là sinh viên Kỹ thuật AI đam mê tại Đại học Bách Khoa TP.HCM (ĐHQG-HCM), chuyên về Computer Vision, Xử lý Ngôn ngữ Tự nhiên và Robotics.",
+    "about.intro": "Sinh viên AI & Robotics với kinh nghiệm thực hành vững chắc về computer vision, NLP và hệ thống nhúng. Tôi xây dựng ứng dụng AI thời gian thực trên nền tảng Jetson (Nano/Orin) cho điều khiển tự động, giữ làn đường và trợ lý thông minh, tập trung vào các hệ thống hiệu quả, có thể triển khai, kết nối nghiên cứu và thực tiễn để làm nổi bật công việc của tôi ở giao điểm của lý thuyết điều khiển và computer vision. Tôi có động lực đóng góp cho các dự án robotics và embedded-AI có tác động lớn trong khi liên tục hoàn thiện kỹ năng tối ưu hóa on-edge và tích hợp hệ thống.",
     "about.experience": "Năm Kinh Nghiệm",
     "about.projects": "Dự Án Hoàn Thành",
     "about.publications": "Công Trình Nghiên Cứu",
