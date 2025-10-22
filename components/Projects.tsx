@@ -11,6 +11,17 @@ const Projects = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const toggleFullscreen = () => {
+    if (!videoRef.current) return;
+    
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      videoRef.current.requestFullscreen();
+    }
+  };
 
   const projects = [
     {
@@ -125,6 +136,7 @@ const Projects = () => {
                 {selectedProject === index && project.videos.length > 0 ? (
                   <div className="relative h-full group/video">
                     <video
+                      ref={videoRef}
                       key={currentVideoIndex}
                       className="w-full h-full object-contain bg-black"
                       controls
@@ -138,30 +150,44 @@ const Projects = () => {
                       <source src={project.videos[currentVideoIndex]} type="video/mp4" />
                     </video>
                     
-                    {/* Close video button */}
-                    <button
-                      onClick={() => setSelectedProject(null)}
-                      className="absolute top-3 right-3 bg-red-500/90 hover:bg-red-600 text-white p-2 rounded-full backdrop-blur-sm transition-all z-20"
-                      title="Close video"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
+                    {/* Control buttons overlay */}
+                    <div className="absolute top-3 right-3 flex gap-2 z-20">
+                      {/* Fullscreen button */}
+                      <button
+                        onClick={toggleFullscreen}
+                        className="bg-blue-500/90 hover:bg-blue-600 text-white p-2 rounded-full backdrop-blur-sm transition-all"
+                        title="Fullscreen"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                        </svg>
+                      </button>
+                      
+                      {/* Close video button */}
+                      <button
+                        onClick={() => setSelectedProject(null)}
+                        className="bg-red-500/90 hover:bg-red-600 text-white p-2 rounded-full backdrop-blur-sm transition-all"
+                        title="Close video"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
                     
                     {/* Video navigation thumbnails for multiple videos */}
                     {project.videos.length > 1 && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-3">
-                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-2">
+                        <div className="flex gap-1.5 overflow-x-auto pb-1.5 scrollbar-hide">
                           {project.videos.map((video, vidIndex) => (
                             <button
                               key={vidIndex}
                               onClick={() => setCurrentVideoIndex(vidIndex)}
                               onContextMenu={(e) => e.preventDefault()}
-                              className={`relative flex-shrink-0 w-28 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                              className={`relative flex-shrink-0 w-20 h-12 rounded overflow-hidden border-2 transition-all ${
                                 currentVideoIndex === vidIndex 
-                                  ? 'border-blue-500 scale-105 shadow-lg shadow-blue-500/50' 
-                                  : 'border-white/30 hover:border-white/70 hover:scale-105'
+                                  ? 'border-blue-500 scale-105 shadow-md shadow-blue-500/50' 
+                                  : 'border-white/30 hover:border-white/60 hover:scale-105'
                               }`}
                             >
                               <video
@@ -171,17 +197,17 @@ const Projects = () => {
                                 preload="metadata"
                               />
                               <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                                <span className="text-white text-sm font-bold bg-black/70 px-2 py-1 rounded-md">
+                                <span className="text-white text-xs font-bold bg-black/70 px-1.5 py-0.5 rounded">
                                   {vidIndex + 1}
                                 </span>
                               </div>
                               {currentVideoIndex === vidIndex && (
-                                <div className="absolute inset-0 border-2 border-blue-400 animate-pulse pointer-events-none"></div>
+                                <div className="absolute inset-0 border border-blue-400 animate-pulse pointer-events-none"></div>
                               )}
                             </button>
                           ))}
                         </div>
-                        <div className="text-center text-white text-sm font-medium mt-1">
+                        <div className="text-center text-white text-xs font-medium mt-1">
                           Video {currentVideoIndex + 1} / {project.videos.length}
                         </div>
                       </div>
