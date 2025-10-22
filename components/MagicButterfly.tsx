@@ -2,17 +2,27 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useButterfly } from "@/contexts/ButterflyContext";
+
+interface ButterflyState {
+  id: number;
+  x: number;
+  y: number;
+  rotation: number;
+  scale: number;
+}
 
 const MagicButterfly = () => {
-  const [butterflies, setButterflies] = useState<Array<{
-    id: number;
-    x: number;
-    y: number;
-    rotation: number;
-    scale: number;
-  }>>([]);
+  const { enabled, draggable } = useButterfly();
+  const [butterflies, setButterflies] = useState<ButterflyState[]>([]);
+  const [draggedButterfly, setDraggedButterfly] = useState<number | null>(null);
 
   useEffect(() => {
+    if (!enabled) {
+      setButterflies([]);
+      return;
+    }
+
     // Create 3 cute butterflies
     const initButterflies = Array.from({ length: 3 }, (_, i) => ({
       id: i,
@@ -23,11 +33,15 @@ const MagicButterfly = () => {
     }));
     setButterflies(initButterflies);
 
+    if (draggable) return; // Don't animate if draggable mode
+
     const animateButterflies = () => {
       const time = Date.now() * 0.001;
 
       setButterflies((prev) =>
         prev.map((butterfly, index) => {
+          if (draggedButterfly === butterfly.id) return butterfly;
+
           const offset = index * 2;
           const radius = 250 + index * 50;
           
@@ -45,19 +59,51 @@ const MagicButterfly = () => {
     };
 
     animateButterflies();
-  }, []);
+  }, [enabled, draggable, draggedButterfly]);
+
+  const handleDragStart = (id: number) => {
+    if (draggable) {
+      setDraggedButterfly(id);
+    }
+  };
+
+  const handleDrag = (id: number, event: any, info: any) => {
+    if (draggable) {
+      setButterflies((prev) =>
+        prev.map((b) =>
+          b.id === id
+            ? { ...b, x: info.point.x, y: info.point.y }
+            : b
+        )
+      );
+    }
+  };
+
+  const handleDragEnd = () => {
+    setDraggedButterfly(null);
+  };
+
+  if (!enabled) return null;
 
   return (
     <>
       {butterflies.map((butterfly, index) => (
         <motion.div
           key={butterfly.id}
-          className="fixed pointer-events-none z-50"
+          className={`fixed z-50 ${draggable ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none'}`}
           style={{
-            left: butterfly.x,
-            top: butterfly.y,
+            left: 0,
+            top: 0,
+            x: butterfly.x,
+            y: butterfly.y,
             transform: `rotate(${butterfly.rotation}deg) scale(${butterfly.scale})`,
           }}
+          drag={draggable}
+          dragMomentum={false}
+          dragElastic={0}
+          onDragStart={() => handleDragStart(butterfly.id)}
+          onDrag={(event, info) => handleDrag(butterfly.id, event, info)}
+          onDragEnd={handleDragEnd}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: index * 0.3 }}

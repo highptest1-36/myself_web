@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import { ButterflyProvider } from "@/contexts/ButterflyContext";
 import Navbar from "@/components/Navbar";
 import MagicButterfly from "@/components/MagicButterfly";
+import ButterflyControl from "@/components/ButterflyControl";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,9 +31,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <Navbar />
-          <MagicButterfly />
-          {children}
+          <LanguageProvider>
+            <ButterflyProvider>
+              <Navbar />
+              <MagicButterfly />
+              <ButterflyControl />
+              {children}
+            </ButterflyProvider>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

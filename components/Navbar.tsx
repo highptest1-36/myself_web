@@ -5,11 +5,13 @@ import { useTheme } from "next-themes";
 import { HiMenu, HiX, HiSun, HiMoon } from "react-icons/hi";
 import { Link } from "react-scroll";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -22,13 +24,13 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", to: "home" },
-    { name: "About", to: "about" },
-    { name: "Skills", to: "skills-chart" },
-    { name: "Projects", to: "projects" },
-    { name: "Publications", to: "publications" },
-    { name: "Awards", to: "awards" },
-    { name: "Contact", to: "contact" },
+    { name: t("nav.home"), to: "home" },
+    { name: t("nav.about"), to: "about" },
+    { name: t("nav.skills"), to: "skills-chart" },
+    { name: t("nav.projects"), to: "projects" },
+    { name: t("nav.publications"), to: "publications" },
+    { name: t("nav.awards"), to: "awards" },
+    { name: t("nav.contact"), to: "contact" },
   ];
 
   if (!mounted) return null;
