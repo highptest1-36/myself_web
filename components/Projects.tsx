@@ -121,21 +121,33 @@ const Projects = () => {
               className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               {/* Project Image/Video */}
-              <div className="relative h-64 overflow-hidden bg-gray-900">
+              <div className="relative h-80 overflow-hidden bg-gray-900 rounded-t-2xl">
                 {selectedProject === index && project.videos.length > 0 ? (
-                  <div className="relative h-full">
+                  <div className="relative h-full group/video">
                     <video
                       key={currentVideoIndex}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain bg-black"
                       controls
                       autoPlay
                       muted
-                      controlsList="nodownload"
+                      controlsList="nodownload noplaybackrate"
                       onContextMenu={(e) => e.preventDefault()}
                       disablePictureInPicture
+                      style={{ maxHeight: '100%' }}
                     >
                       <source src={project.videos[currentVideoIndex]} type="video/mp4" />
                     </video>
+                    
+                    {/* Close video button */}
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="absolute top-3 right-3 bg-red-500/90 hover:bg-red-600 text-white p-2 rounded-full backdrop-blur-sm transition-all z-20"
+                      title="Close video"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
                     
                     {/* Video navigation thumbnails for multiple videos */}
                     {project.videos.length > 1 && (
@@ -146,7 +158,7 @@ const Projects = () => {
                               key={vidIndex}
                               onClick={() => setCurrentVideoIndex(vidIndex)}
                               onContextMenu={(e) => e.preventDefault()}
-                              className={`relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                              className={`relative flex-shrink-0 w-28 h-16 rounded-lg overflow-hidden border-2 transition-all ${
                                 currentVideoIndex === vidIndex 
                                   ? 'border-blue-500 scale-105 shadow-lg shadow-blue-500/50' 
                                   : 'border-white/30 hover:border-white/70 hover:scale-105'
