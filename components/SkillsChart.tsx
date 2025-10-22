@@ -140,9 +140,9 @@ export default function SkillsChart() {
             className="space-y-8"
           >
             {/* Radar Chart Visualization */}
-            <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-8 shadow-2xl border border-blue-500/20">
-              <h3 className="text-2xl font-bold mb-6 text-center text-white">Skills Overview</h3>
-              <div className="relative w-full max-w-xl mx-auto" style={{ paddingBottom: '85%' }}>
+            <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-6 shadow-2xl border border-blue-500/20">
+              <h3 className="text-2xl font-bold mb-4 text-center text-white">Skills Overview</h3>
+              <div className="relative w-full max-w-2xl mx-auto" style={{ paddingBottom: '85%' }}>
                 <svg viewBox="0 0 500 480" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <filter id="glow">
