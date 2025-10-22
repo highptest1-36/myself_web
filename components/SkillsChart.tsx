@@ -140,10 +140,10 @@ export default function SkillsChart() {
             className="space-y-8"
           >
             {/* Radar Chart Visualization */}
-            <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-12 shadow-2xl border border-blue-500/20">
-              <h3 className="text-2xl font-bold mb-8 text-center text-white">Skills Overview</h3>
-              <div className="relative w-full max-w-3xl mx-auto" style={{ paddingBottom: '100%' }}>
-                <svg viewBox="0 0 640 680" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
+            <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-8 shadow-2xl border border-blue-500/20">
+              <h3 className="text-2xl font-bold mb-6 text-center text-white">Skills Overview</h3>
+              <div className="relative w-full max-w-xl mx-auto" style={{ paddingBottom: '85%' }}>
+                <svg viewBox="0 0 500 480" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <filter id="glow">
                       <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -175,11 +175,11 @@ export default function SkillsChart() {
                   </defs>
                   
                   {/* Background concentric circles */}
-                  {[80, 140, 200, 260].map((r, i) => (
+                  {[60, 110, 160, 210].map((r, i) => (
                     <motion.circle
                       key={i}
-                      cx="320"
-                      cy="320"
+                      cx="250"
+                      cy="240"
                       r={r}
                       fill="none"
                       stroke="rgba(96, 165, 250, 0.12)"
@@ -206,13 +206,13 @@ export default function SkillsChart() {
                   {/* Axis lines from center */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const x = 320 + Math.cos(angle) * 260;
-                    const y = 320 + Math.sin(angle) * 260;
+                    const x = 250 + Math.cos(angle) * 210;
+                    const y = 240 + Math.sin(angle) * 210;
                     return (
                       <motion.line
                         key={i}
-                        x1="320"
-                        y1="320"
+                        x1="250"
+                        y1="240"
                         x2={x}
                         y2={y}
                         stroke="rgba(96, 165, 250, 0.25)"
@@ -228,9 +228,9 @@ export default function SkillsChart() {
                   <motion.polygon
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
-                      const r = (skill.value / 100) * 260;
-                      const x = 320 + Math.cos(angle) * r;
-                      const y = 320 + Math.sin(angle) * r;
+                      const r = (skill.value / 100) * 210;
+                      const x = 250 + Math.cos(angle) * r;
+                      const y = 240 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
                     fill="url(#polyGradient)"
@@ -247,9 +247,9 @@ export default function SkillsChart() {
                   <motion.polygon
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
-                      const r = (skill.value / 100) * 260;
-                      const x = 320 + Math.cos(angle) * r;
-                      const y = 320 + Math.sin(angle) * r;
+                      const r = (skill.value / 100) * 210;
+                      const x = 250 + Math.cos(angle) * r;
+                      const y = 240 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
                     fill="none"
@@ -268,22 +268,22 @@ export default function SkillsChart() {
                   {/* Skill points with labels */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const r = (skill.value / 100) * 260;
-                    const x = 320 + Math.cos(angle) * r;
-                    const y = 320 + Math.sin(angle) * r;
+                    const r = (skill.value / 100) * 210;
+                    const x = 250 + Math.cos(angle) * r;
+                    const y = 240 + Math.sin(angle) * r;
                     
                     // Label position (outside the chart) - adjusted for better spacing
-                    const labelR = 310;
-                    const labelX = 320 + Math.cos(angle) * labelR;
-                    const labelY = 320 + Math.sin(angle) * labelR;
+                    const labelR = 250;
+                    const labelX = 250 + Math.cos(angle) * labelR;
+                    const labelY = 240 + Math.sin(angle) * labelR;
                     
                     // Adjust text anchor based on position
                     let textAnchor = "middle";
                     let dx = 0;
-                    if (labelX < 300) textAnchor = "end";
-                    if (labelX > 340) textAnchor = "start";
-                    if (labelX < 300) dx = -10;
-                    if (labelX > 340) dx = 10;
+                    if (labelX < 230) textAnchor = "end";
+                    if (labelX > 270) textAnchor = "start";
+                    if (labelX < 230) dx = -10;
+                    if (labelX > 270) dx = 10;
                     
                     return (
                       <g key={i}>
@@ -291,7 +291,7 @@ export default function SkillsChart() {
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="18"
+                          r="14"
                           fill="#3b82f6"
                           opacity="0.2"
                           initial={{ scale: 0 }}
@@ -310,7 +310,7 @@ export default function SkillsChart() {
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="11"
+                          r="9"
                           fill="#60a5fa"
                           filter="url(#glow)"
                           initial={{ scale: 0 }}
@@ -321,7 +321,7 @@ export default function SkillsChart() {
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="6"
+                          r="5"
                           fill="#ffffff"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
@@ -330,11 +330,11 @@ export default function SkillsChart() {
                         
                         {/* Background rectangle for better text visibility */}
                         <motion.rect
-                          x={labelX + dx - 45}
-                          y={labelY - 20}
-                          width="90"
-                          height="38"
-                          rx="6"
+                          x={labelX + dx - 40}
+                          y={labelY - 18}
+                          width="80"
+                          height="34"
+                          rx="5"
                           fill="rgba(15, 23, 42, 0.85)"
                           stroke="rgba(96, 165, 250, 0.3)"
                           strokeWidth="1"
@@ -346,9 +346,9 @@ export default function SkillsChart() {
                         {/* Skill labels */}
                         <motion.text
                           x={labelX + dx}
-                          y={labelY - 5}
+                          y={labelY - 4}
                           textAnchor="middle"
-                          className="text-xs font-bold fill-white"
+                          className="text-[11px] font-bold fill-white"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: i * 0.12 + 1.3, duration: 0.5 }}
@@ -357,9 +357,9 @@ export default function SkillsChart() {
                         </motion.text>
                         <motion.text
                           x={labelX + dx}
-                          y={labelY + 10}
+                          y={labelY + 9}
                           textAnchor="middle"
-                          className="text-sm font-extrabold fill-cyan-400"
+                          className="text-[13px] font-extrabold fill-cyan-400"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: i * 0.12 + 1.4, duration: 0.5 }}
@@ -372,9 +372,9 @@ export default function SkillsChart() {
                   
                   {/* Center circle decoration */}
                   <motion.circle
-                    cx="320"
-                    cy="320"
-                    r="28"
+                    cx="250"
+                    cy="240"
+                    r="22"
                     fill="url(#centerGradient)"
                     filter="url(#strongGlow)"
                     initial={{ scale: 0 }}
@@ -389,15 +389,15 @@ export default function SkillsChart() {
                     }}
                   />
                   <circle
-                    cx="320"
-                    cy="320"
-                    r="14"
+                    cx="250"
+                    cy="240"
+                    r="11"
                     fill="#ffffff"
                   />
                   <circle
-                    cx="320"
-                    cy="320"
-                    r="6"
+                    cx="250"
+                    cy="240"
+                    r="5"
                     fill="#60a5fa"
                   />
                 </svg>
