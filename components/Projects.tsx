@@ -121,7 +121,7 @@ const Projects = () => {
               className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
               {/* Project Image/Video */}
-              <div className="relative h-48 overflow-hidden bg-gray-900">
+              <div className="relative h-64 overflow-hidden bg-gray-900">
                 {selectedProject === index && project.videos.length > 0 ? (
                   <div className="relative h-full">
                     <video
@@ -130,41 +130,46 @@ const Projects = () => {
                       controls
                       autoPlay
                       muted
+                      controlsList="nodownload"
+                      onContextMenu={(e) => e.preventDefault()}
+                      disablePictureInPicture
                     >
                       <source src={project.videos[currentVideoIndex]} type="video/mp4" />
                     </video>
                     
                     {/* Video navigation thumbnails for multiple videos */}
                     {project.videos.length > 1 && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-2">
-                        <div className="flex gap-1 overflow-x-auto pb-1">
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/80 to-transparent p-3">
+                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
                           {project.videos.map((video, vidIndex) => (
                             <button
                               key={vidIndex}
                               onClick={() => setCurrentVideoIndex(vidIndex)}
-                              className={`relative flex-shrink-0 w-20 h-12 rounded overflow-hidden border-2 transition-all ${
+                              onContextMenu={(e) => e.preventDefault()}
+                              className={`relative flex-shrink-0 w-32 h-20 rounded-lg overflow-hidden border-2 transition-all ${
                                 currentVideoIndex === vidIndex 
-                                  ? 'border-blue-500 scale-110' 
-                                  : 'border-white/30 hover:border-white/60'
+                                  ? 'border-blue-500 scale-105 shadow-lg shadow-blue-500/50' 
+                                  : 'border-white/30 hover:border-white/70 hover:scale-105'
                               }`}
                             >
                               <video
                                 src={video}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-cover pointer-events-none"
                                 muted
+                                preload="metadata"
                               />
-                              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                                <span className="text-white text-xs font-bold bg-black/60 px-1 rounded">
+                              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                                <span className="text-white text-sm font-bold bg-black/70 px-2 py-1 rounded-md">
                                   {vidIndex + 1}
                                 </span>
                               </div>
                               {currentVideoIndex === vidIndex && (
-                                <div className="absolute inset-0 border-2 border-blue-500 animate-pulse"></div>
+                                <div className="absolute inset-0 border-2 border-blue-400 animate-pulse pointer-events-none"></div>
                               )}
                             </button>
                           ))}
                         </div>
-                        <div className="text-center text-white text-xs mt-1">
+                        <div className="text-center text-white text-sm font-medium mt-1">
                           Video {currentVideoIndex + 1} / {project.videos.length}
                         </div>
                       </div>
@@ -177,6 +182,7 @@ const Projects = () => {
                       alt={project.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      onContextMenu={(e) => e.preventDefault()}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     
