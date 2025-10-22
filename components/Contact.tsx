@@ -40,8 +40,8 @@ const Contact = () => {
     {
       icon: HiMail,
       title: "Email",
-      value: "caophuc@example.com",
-      link: "mailto:caophuc@example.com",
+      value: "caophucai@gmail.com",
+      link: "mailto:caophucai@gmail.com",
     },
     {
       icon: HiPhone,

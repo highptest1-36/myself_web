@@ -2,14 +2,15 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { HiStar } from "react-icons/hi";
+import { useRef, useState } from "react";
+import { HiStar, HiX } from "react-icons/hi";
 import { FaTrophy } from "react-icons/fa";
 import Image from "next/image";
 
 const Awards = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const awards = [
     {
@@ -143,7 +144,11 @@ const Awards = () => {
                 {award.images ? (
                   <div className="grid grid-cols-2 gap-2 mb-4">
                     {award.images.map((img, idx) => (
-                      <div key={idx} className="relative h-28 rounded-lg overflow-hidden">
+                      <div 
+                        key={idx} 
+                        className="relative h-28 rounded-lg overflow-hidden cursor-pointer"
+                        onClick={() => setSelectedImage(img)}
+                      >
                         <Image
                           src={img}
                           alt={`${award.title} - ${idx + 1}`}
@@ -155,7 +160,10 @@ const Awards = () => {
                     ))}
                   </div>
                 ) : (
-                  <div className="relative h-40 mb-4 rounded-xl overflow-hidden">
+                  <div 
+                    className="relative h-40 mb-4 rounded-xl overflow-hidden cursor-pointer"
+                    onClick={() => setSelectedImage(award.image || "")}
+                  >
                     <Image
                       src={award.image || ""}
                       alt={award.title}
@@ -225,6 +233,38 @@ const Awards = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Image Modal */}
+      {selectedImage && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setSelectedImage(null)}
+        >
+          <button
+            onClick={() => setSelectedImage(null)}
+            className="absolute top-4 right-4 p-2 bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+            aria-label="Close"
+          >
+            <HiX className="w-6 h-6 text-white" />
+          </button>
+          <motion.div
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            className="relative max-w-5xl max-h-[90vh] w-full h-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Image
+              src={selectedImage}
+              alt="Enlarged view"
+              fill
+              className="object-contain"
+            />
+          </motion.div>
+        </motion.div>
+      )}
     </section>
   );
 };
