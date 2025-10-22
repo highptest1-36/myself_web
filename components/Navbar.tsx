@@ -66,9 +66,10 @@ const Navbar = () => {
                 key={item.name}
                 to={item.to}
                 spy={true}
-                smooth={true}
-                duration={800}
-                offset={-70}
+                smooth="easeInOutQuart"
+                duration={1000}
+                offset={-80}
+                isDynamic={true}
                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors font-medium"
                 activeClass="text-blue-600 dark:text-blue-400"
               >
@@ -124,6 +125,7 @@ const Navbar = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.2 }}
           className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
         >
           <div className="px-4 pt-2 pb-4 space-y-2">
@@ -132,9 +134,10 @@ const Navbar = () => {
                 key={item.name}
                 to={item.to}
                 spy={true}
-                smooth={true}
-                duration={800}
-                offset={-70}
+                smooth="easeInOutQuart"
+                duration={1000}
+                offset={-80}
+                isDynamic={true}
                 onClick={() => setIsOpen(false)}
                 className="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"
               >
