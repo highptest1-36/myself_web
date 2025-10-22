@@ -142,8 +142,8 @@ export default function SkillsChart() {
             {/* Radar Chart Visualization */}
             <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-12 shadow-2xl border border-blue-500/20">
               <h3 className="text-2xl font-bold mb-8 text-center text-white">Skills Overview</h3>
-              <div className="relative w-full max-w-3xl mx-auto aspect-square">
-                <svg viewBox="0 0 600 600" className="w-full h-full">
+              <div className="relative w-full max-w-3xl mx-auto" style={{ paddingBottom: '100%' }}>
+                <svg viewBox="0 0 640 680" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid meet">
                   <defs>
                     <filter id="glow">
                       <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
@@ -178,8 +178,8 @@ export default function SkillsChart() {
                   {[80, 140, 200, 260].map((r, i) => (
                     <motion.circle
                       key={i}
-                      cx="300"
-                      cy="300"
+                      cx="320"
+                      cy="320"
                       r={r}
                       fill="none"
                       stroke="rgba(96, 165, 250, 0.12)"
@@ -206,13 +206,13 @@ export default function SkillsChart() {
                   {/* Axis lines from center */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const x = 300 + Math.cos(angle) * 260;
-                    const y = 300 + Math.sin(angle) * 260;
+                    const x = 320 + Math.cos(angle) * 260;
+                    const y = 320 + Math.sin(angle) * 260;
                     return (
                       <motion.line
                         key={i}
-                        x1="300"
-                        y1="300"
+                        x1="320"
+                        y1="320"
                         x2={x}
                         y2={y}
                         stroke="rgba(96, 165, 250, 0.25)"
@@ -229,8 +229,8 @@ export default function SkillsChart() {
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
                       const r = (skill.value / 100) * 260;
-                      const x = 300 + Math.cos(angle) * r;
-                      const y = 300 + Math.sin(angle) * r;
+                      const x = 320 + Math.cos(angle) * r;
+                      const y = 320 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
                     fill="url(#polyGradient)"
@@ -248,8 +248,8 @@ export default function SkillsChart() {
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
                       const r = (skill.value / 100) * 260;
-                      const x = 300 + Math.cos(angle) * r;
-                      const y = 300 + Math.sin(angle) * r;
+                      const x = 320 + Math.cos(angle) * r;
+                      const y = 320 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
                     fill="none"
@@ -269,21 +269,21 @@ export default function SkillsChart() {
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
                     const r = (skill.value / 100) * 260;
-                    const x = 300 + Math.cos(angle) * r;
-                    const y = 300 + Math.sin(angle) * r;
+                    const x = 320 + Math.cos(angle) * r;
+                    const y = 320 + Math.sin(angle) * r;
                     
                     // Label position (outside the chart) - adjusted for better spacing
                     const labelR = 310;
-                    const labelX = 300 + Math.cos(angle) * labelR;
-                    const labelY = 300 + Math.sin(angle) * labelR;
+                    const labelX = 320 + Math.cos(angle) * labelR;
+                    const labelY = 320 + Math.sin(angle) * labelR;
                     
                     // Adjust text anchor based on position
                     let textAnchor = "middle";
                     let dx = 0;
-                    if (labelX < 280) textAnchor = "end";
-                    if (labelX > 320) textAnchor = "start";
-                    if (labelX < 280) dx = -10;
-                    if (labelX > 320) dx = 10;
+                    if (labelX < 300) textAnchor = "end";
+                    if (labelX > 340) textAnchor = "start";
+                    if (labelX < 300) dx = -10;
+                    if (labelX > 340) dx = 10;
                     
                     return (
                       <g key={i}>
@@ -372,8 +372,8 @@ export default function SkillsChart() {
                   
                   {/* Center circle decoration */}
                   <motion.circle
-                    cx="300"
-                    cy="300"
+                    cx="320"
+                    cy="320"
                     r="28"
                     fill="url(#centerGradient)"
                     filter="url(#strongGlow)"
@@ -389,14 +389,14 @@ export default function SkillsChart() {
                     }}
                   />
                   <circle
-                    cx="300"
-                    cy="300"
+                    cx="320"
+                    cy="320"
                     r="14"
                     fill="#ffffff"
                   />
                   <circle
-                    cx="300"
-                    cy="300"
+                    cx="320"
+                    cy="320"
                     r="6"
                     fill="#60a5fa"
                   />
