@@ -134,20 +134,39 @@ const Projects = () => {
                       <source src={project.videos[currentVideoIndex]} type="video/mp4" />
                     </video>
                     
-                    {/* Video navigation if multiple videos */}
+                    {/* Video navigation thumbnails for multiple videos */}
                     {project.videos.length > 1 && (
-                      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2 z-10">
-                        {project.videos.map((_, vidIndex) => (
-                          <button
-                            key={vidIndex}
-                            onClick={() => setCurrentVideoIndex(vidIndex)}
-                            className={`w-2 h-2 rounded-full transition-all ${
-                              currentVideoIndex === vidIndex 
-                                ? 'bg-blue-500 w-6' 
-                                : 'bg-white/50 hover:bg-white/80'
-                            }`}
-                          />
-                        ))}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-2">
+                        <div className="flex gap-1 overflow-x-auto pb-1">
+                          {project.videos.map((video, vidIndex) => (
+                            <button
+                              key={vidIndex}
+                              onClick={() => setCurrentVideoIndex(vidIndex)}
+                              className={`relative flex-shrink-0 w-20 h-12 rounded overflow-hidden border-2 transition-all ${
+                                currentVideoIndex === vidIndex 
+                                  ? 'border-blue-500 scale-110' 
+                                  : 'border-white/30 hover:border-white/60'
+                              }`}
+                            >
+                              <video
+                                src={video}
+                                className="w-full h-full object-cover"
+                                muted
+                              />
+                              <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                                <span className="text-white text-xs font-bold bg-black/60 px-1 rounded">
+                                  {vidIndex + 1}
+                                </span>
+                              </div>
+                              {currentVideoIndex === vidIndex && (
+                                <div className="absolute inset-0 border-2 border-blue-500 animate-pulse"></div>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                        <div className="text-center text-white text-xs mt-1">
+                          Video {currentVideoIndex + 1} / {project.videos.length}
+                        </div>
                       </div>
                     )}
                   </div>
