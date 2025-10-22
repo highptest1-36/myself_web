@@ -13,6 +13,19 @@ const Awards = () => {
 
   const awards = [
     {
+      title: 'ATTACKER 2025 – "ARE YOU AN INNOVATOR? WE\'RE YOUR INVESTORS"',
+      organization: "ATTACKER Competition",
+      date: "2025",
+      description: "🚀 ATTACKER 2025 - Innovation and Investment Competition. Presented groundbreaking solutions to attract potential investors.",
+      images: [
+        "/attacker (1).jpg",
+        "/attacker (2).jpg",
+        "/attacker (3).jpg",
+        "/attacker (4).jpg",
+      ],
+      color: "from-cyan-400 to-blue-600",
+    },
+    {
       title: "Runner-up Vibe Coding Challenge - Hoa Sen University",
       organization: "Hoa Sen University",
       date: "2025",
@@ -127,15 +140,31 @@ const Awards = () => {
                 </div>
 
                 {/* Image Preview */}
-                <div className="relative h-40 mb-4 rounded-xl overflow-hidden">
-                  <Image
-                    src={award.image}
-                    alt={award.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                </div>
+                {award.images ? (
+                  <div className="grid grid-cols-2 gap-2 mb-4">
+                    {award.images.map((img, idx) => (
+                      <div key={idx} className="relative h-28 rounded-lg overflow-hidden">
+                        <Image
+                          src={img}
+                          alt={`${award.title} - ${idx + 1}`}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="relative h-40 mb-4 rounded-xl overflow-hidden">
+                    <Image
+                      src={award.image || ""}
+                      alt={award.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                  </div>
+                )}
 
                 {/* Award Title */}
                 <h3 className="text-lg font-bold mb-2 text-center min-h-[3rem] flex items-center justify-center">
