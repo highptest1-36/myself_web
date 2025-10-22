@@ -140,186 +140,206 @@ export default function SkillsChart() {
             className="space-y-8"
           >
             {/* Radar Chart Visualization */}
-            <motion.div variants={itemVariants} className="bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 rounded-2xl p-8 shadow-2xl">
+            <motion.div variants={itemVariants} className="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 rounded-2xl p-8 shadow-2xl border border-blue-500/20">
               <h3 className="text-2xl font-bold mb-6 text-center text-white">Skills Overview</h3>
-              <div className="relative w-full max-w-2xl mx-auto aspect-square">
-                <svg viewBox="0 0 400 400" className="w-full h-full">
-                  {/* Animated background circles with glow */}
-                  {[80, 160, 240, 320].map((r, i) => (
-                    <g key={i}>
-                      <motion.circle
-                        cx="200"
-                        cy="200"
-                        r={r}
-                        fill="none"
-                        stroke={`rgba(59, 130, 246, ${0.3 - i * 0.05})`}
-                        strokeWidth="2"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: i * 0.1, duration: 0.8 }}
-                      />
-                      <motion.circle
-                        cx="200"
-                        cy="200"
-                        r={r}
-                        fill="none"
-                        stroke={`rgba(59, 130, 246, 0.5)`}
-                        strokeWidth="1"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ 
-                          scale: [1, 1.02, 1],
-                          opacity: [0.3, 0.6, 0.3]
-                        }}
-                        transition={{ 
-                          delay: i * 0.1,
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: "easeInOut"
-                        }}
-                      />
-                    </g>
-                  ))}
-                  
-                  {/* Skill lines from center with gradient */}
-                  {radarSkills.map((skill, i) => {
-                    const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const x = 200 + Math.cos(angle) * 320;
-                    const y = 200 + Math.sin(angle) * 320;
-                    return (
-                      <motion.line
-                        key={i}
-                        x1="200"
-                        y1="200"
-                        x2={x}
-                        y2={y}
-                        stroke="url(#lineGradient)"
-                        strokeWidth="2"
-                        opacity="0.4"
-                        initial={{ pathLength: 0 }}
-                        animate={{ pathLength: 1 }}
-                        transition={{ delay: i * 0.1, duration: 0.8 }}
-                      />
-                    );
-                  })}
-                  
-                  {/* Animated skill polygon with glow effect */}
+              <div className="relative w-full max-w-2xl mx-auto aspect-square p-4">
+                <svg viewBox="0 0 500 500" className="w-full h-full">
                   <defs>
                     <filter id="glow">
-                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                    <filter id="strongGlow">
+                      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
                       <feMerge>
                         <feMergeNode in="coloredBlur"/>
                         <feMergeNode in="SourceGraphic"/>
                       </feMerge>
                     </filter>
                     <linearGradient id="polyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-                      <stop offset="50%" stopColor="#8b5cf6" stopOpacity="0.6" />
-                      <stop offset="100%" stopColor="#ec4899" stopOpacity="0.8" />
+                      <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.4" />
+                      <stop offset="50%" stopColor="#a78bfa" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="#ec4899" stopOpacity="0.4" />
                     </linearGradient>
                     <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                      <stop offset="0%" stopColor="#3b82f6" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
+                      <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+                      <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0.6" />
                     </linearGradient>
+                    <radialGradient id="centerGradient">
+                      <stop offset="0%" stopColor="#60a5fa" />
+                      <stop offset="100%" stopColor="#3b82f6" />
+                    </radialGradient>
                   </defs>
                   
+                  {/* Background concentric circles */}
+                  {[100, 150, 200, 250].map((r, i) => (
+                    <motion.circle
+                      key={i}
+                      cx="250"
+                      cy="250"
+                      r={r}
+                      fill="none"
+                      stroke="rgba(96, 165, 250, 0.15)"
+                      strokeWidth="1.5"
+                      strokeDasharray="4 4"
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ 
+                        scale: 1, 
+                        opacity: 1,
+                        rotate: 360
+                      }}
+                      transition={{ 
+                        delay: i * 0.1, 
+                        duration: 0.8,
+                        rotate: {
+                          duration: 60,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }
+                      }}
+                    />
+                  ))}
+                  
+                  {/* Axis lines from center */}
+                  {radarSkills.map((skill, i) => {
+                    const angle = (i * 60 - 90) * (Math.PI / 180);
+                    const x = 250 + Math.cos(angle) * 250;
+                    const y = 250 + Math.sin(angle) * 250;
+                    return (
+                      <motion.line
+                        key={i}
+                        x1="250"
+                        y1="250"
+                        x2={x}
+                        y2={y}
+                        stroke="rgba(96, 165, 250, 0.3)"
+                        strokeWidth="1.5"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 1 }}
+                        transition={{ delay: i * 0.08, duration: 0.6 }}
+                      />
+                    );
+                  })}
+                  
+                  {/* Skill polygon - filled area */}
                   <motion.polygon
                     points={radarSkills.map((skill, i) => {
                       const angle = (i * 60 - 90) * (Math.PI / 180);
-                      const r = (skill.value / 100) * 320;
-                      const x = 200 + Math.cos(angle) * r;
-                      const y = 200 + Math.sin(angle) * r;
+                      const r = (skill.value / 100) * 250;
+                      const x = 250 + Math.cos(angle) * r;
+                      const y = 250 + Math.sin(angle) * r;
                       return `${x},${y}`;
                     }).join(' ')}
                     fill="url(#polyGradient)"
+                    stroke="none"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ 
+                      scale: 1, 
+                      opacity: 1
+                    }}
+                    transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+                  />
+                  
+                  {/* Skill polygon - border with glow */}
+                  <motion.polygon
+                    points={radarSkills.map((skill, i) => {
+                      const angle = (i * 60 - 90) * (Math.PI / 180);
+                      const r = (skill.value / 100) * 250;
+                      const x = 250 + Math.cos(angle) * r;
+                      const y = 250 + Math.sin(angle) * r;
+                      return `${x},${y}`;
+                    }).join(' ')}
+                    fill="none"
                     stroke="#60a5fa"
                     strokeWidth="3"
-                    filter="url(#glow)"
-                    initial={{ scale: 0, opacity: 0, rotate: -180 }}
+                    filter="url(#strongGlow)"
+                    initial={{ scale: 0, opacity: 0, rotate: -90 }}
                     animate={{ 
                       scale: 1, 
                       opacity: 1, 
                       rotate: 0 
                     }}
-                    transition={{ duration: 1.2, ease: "easeOut" }}
+                    transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
                   />
                   
-                  {/* Animated skill points with pulse effect */}
+                  {/* Skill points with labels */}
                   {radarSkills.map((skill, i) => {
                     const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const r = (skill.value / 100) * 320;
-                    const x = 200 + Math.cos(angle) * r;
-                    const y = 200 + Math.sin(angle) * r;
+                    const r = (skill.value / 100) * 250;
+                    const x = 250 + Math.cos(angle) * r;
+                    const y = 250 + Math.sin(angle) * r;
+                    
+                    // Label position (outside the chart)
+                    const labelR = 290;
+                    const labelX = 250 + Math.cos(angle) * labelR;
+                    const labelY = 250 + Math.sin(angle) * labelR;
+                    
                     return (
                       <g key={i}>
+                        {/* Outer pulse circle */}
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="12"
+                          r="16"
                           fill="#3b82f6"
-                          opacity="0.3"
+                          opacity="0.2"
                           initial={{ scale: 0 }}
                           animate={{ 
-                            scale: [1, 1.5, 1],
-                            opacity: [0.3, 0, 0.3]
+                            scale: [1, 1.8, 1],
+                            opacity: [0.2, 0, 0.2]
                           }}
                           transition={{ 
-                            delay: i * 0.15,
+                            delay: i * 0.12 + 1,
                             duration: 2,
                             repeat: Infinity,
                             ease: "easeInOut"
                           }}
                         />
+                        {/* Main point circle */}
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="8"
+                          r="10"
                           fill="#60a5fa"
                           filter="url(#glow)"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          transition={{ delay: i * 0.15, duration: 0.5 }}
-                          whileHover={{ scale: 1.3 }}
+                          transition={{ delay: i * 0.12 + 1, duration: 0.4 }}
                         />
+                        {/* Inner white circle */}
                         <motion.circle
                           cx={x}
                           cy={y}
-                          r="4"
-                          fill="#fff"
+                          r="5"
+                          fill="#ffffff"
                           initial={{ scale: 0 }}
                           animate={{ scale: 1 }}
-                          transition={{ delay: i * 0.15 + 0.2, duration: 0.3 }}
+                          transition={{ delay: i * 0.12 + 1.1, duration: 0.3 }}
                         />
-                      </g>
-                    );
-                  })}
-                  
-                  {/* Skill labels with percentage and enhanced styling */}
-                  {radarSkills.map((skill, i) => {
-                    const angle = (i * 60 - 90) * (Math.PI / 180);
-                    const labelR = 360;
-                    const x = 200 + Math.cos(angle) * labelR;
-                    const y = 200 + Math.sin(angle) * labelR;
-                    return (
-                      <g key={i}>
+                        
+                        {/* Skill labels */}
                         <motion.text
-                          x={x}
-                          y={y}
+                          x={labelX}
+                          y={labelY - 8}
                           textAnchor="middle"
                           className="text-sm font-bold fill-white"
-                          initial={{ opacity: 0, scale: 0 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: i * 0.15 + 0.5, duration: 0.5 }}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: i * 0.12 + 1.2, duration: 0.5 }}
                         >
                           {skill.skill}
                         </motion.text>
                         <motion.text
-                          x={x}
-                          y={y + 15}
+                          x={labelX}
+                          y={labelY + 8}
                           textAnchor="middle"
-                          className="text-xs font-semibold fill-cyan-400"
+                          className="text-base font-extrabold fill-cyan-400"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          transition={{ delay: i * 0.15 + 0.7, duration: 0.5 }}
+                          transition={{ delay: i * 0.12 + 1.3, duration: 0.5 }}
                         >
                           {skill.value}%
                         </motion.text>
@@ -327,28 +347,35 @@ export default function SkillsChart() {
                     );
                   })}
                   
-                  {/* Center circle with glow */}
+                  {/* Center circle decoration */}
                   <motion.circle
-                    cx="200"
-                    cy="200"
-                    r="20"
-                    fill="url(#polyGradient)"
-                    filter="url(#glow)"
+                    cx="250"
+                    cy="250"
+                    r="25"
+                    fill="url(#centerGradient)"
+                    filter="url(#strongGlow)"
                     initial={{ scale: 0 }}
                     animate={{ 
-                      scale: [1, 1.1, 1],
+                      scale: [1, 1.15, 1],
                     }}
                     transition={{
-                      duration: 2,
+                      delay: 1.5,
+                      duration: 2.5,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
                   />
                   <circle
-                    cx="200"
-                    cy="200"
-                    r="10"
-                    fill="#fff"
+                    cx="250"
+                    cy="250"
+                    r="12"
+                    fill="#ffffff"
+                  />
+                  <circle
+                    cx="250"
+                    cy="250"
+                    r="5"
+                    fill="#60a5fa"
                   />
                 </svg>
               </div>
