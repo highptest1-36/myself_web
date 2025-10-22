@@ -17,7 +17,7 @@ const Awards = () => {
       organization: "Hoa Sen University",
       date: "2025",
       description: "🥈 Á Quân cuộc thi Vibe Coding - Đại học Hoa Sen. Outstanding performance in competitive programming and algorithm design.",
-      image: "/vibe_code (1).jpg",
+      image: "/vibe_code (6).jpg",
       color: "from-purple-400 to-pink-500",
     },
     {
@@ -41,7 +41,7 @@ const Awards = () => {
       organization: "Quy Nhon",
       date: "June 2025 – August 2025",
       description: "Agent–Trading–Forex (ATF): A LLM Orchestrated Multi-Model Architecture for Intelligent Forex Trading",
-      image: "/vibe_code (3).jpg",
+      image: "/resfes.jpg",
       color: "from-green-400 to-teal-500",
     },
     {
@@ -57,7 +57,7 @@ const Awards = () => {
       organization: "Ho Chi Minh City",
       date: "January 2024",
       description: "🧠 Recognized for exceptional research presentation and innovation in AI and embedded systems.",
-      image: "/vibe_code (6).jpg",
+      image: "/Outstanding_Paper.jpg",
       color: "from-indigo-400 to-purple-500",
     },
     {

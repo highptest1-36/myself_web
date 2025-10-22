@@ -51,7 +51,7 @@ const Navbar = () => {
             to="home"
             spy={true}
             smooth={true}
-            duration={500}
+            duration={800}
             className="text-2xl font-bold gradient-text cursor-pointer"
           >
             Cao Phúc
@@ -65,7 +65,7 @@ const Navbar = () => {
                 to={item.to}
                 spy={true}
                 smooth={true}
-                duration={500}
+                duration={800}
                 offset={-70}
                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer transition-colors font-medium"
                 activeClass="text-blue-600 dark:text-blue-400"
@@ -131,7 +131,7 @@ const Navbar = () => {
                 to={item.to}
                 spy={true}
                 smooth={true}
-                duration={500}
+                duration={800}
                 offset={-70}
                 onClick={() => setIsOpen(false)}
                 className="block px-3 py-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer transition-colors"

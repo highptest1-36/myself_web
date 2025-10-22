@@ -9,7 +9,8 @@ import Image from "next/image";
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState<number>(0);
 
   const projects = [
     {
@@ -121,16 +122,35 @@ const Projects = () => {
             >
               {/* Project Image/Video */}
               <div className="relative h-48 overflow-hidden bg-gray-900">
-                {playingVideo === index && project.videos.length > 0 ? (
-                  <video
-                    className="w-full h-full object-cover"
-                    controls
-                    autoPlay
-                    loop
-                    muted
-                  >
-                    <source src={project.videos[0]} type="video/mp4" />
-                  </video>
+                {selectedProject === index && project.videos.length > 0 ? (
+                  <div className="relative h-full">
+                    <video
+                      key={currentVideoIndex}
+                      className="w-full h-full object-cover"
+                      controls
+                      autoPlay
+                      muted
+                    >
+                      <source src={project.videos[currentVideoIndex]} type="video/mp4" />
+                    </video>
+                    
+                    {/* Video navigation if multiple videos */}
+                    {project.videos.length > 1 && (
+                      <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-2 z-10">
+                        {project.videos.map((_, vidIndex) => (
+                          <button
+                            key={vidIndex}
+                            onClick={() => setCurrentVideoIndex(vidIndex)}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              currentVideoIndex === vidIndex 
+                                ? 'bg-blue-500 w-6' 
+                                : 'bg-white/50 hover:bg-white/80'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ) : (
                   <>
                     <Image
@@ -144,7 +164,10 @@ const Projects = () => {
                     {/* Play button if videos available */}
                     {project.videos.length > 0 && (
                       <button
-                        onClick={() => setPlayingVideo(index)}
+                        onClick={() => {
+                          setSelectedProject(index);
+                          setCurrentVideoIndex(0);
+                        }}
                         className="absolute inset-0 flex items-center justify-center group/play"
                       >
                         <div className="w-16 h-16 bg-blue-500/80 rounded-full flex items-center justify-center group-hover/play:bg-blue-600 transition-colors backdrop-blur-sm">

@@ -32,7 +32,7 @@ const Hero = () => {
             className="text-4xl md:text-6xl font-bold mb-4"
           >
             Hi, I'm{" "}
-            <span className="gradient-text">Cao Phúc Hà</span>
+            <span className="gradient-text">Cao-Phuc Ha</span>
           </motion.h1>
 
           <div className="text-2xl md:text-3xl font-semibold mb-6 h-20 text-gray-700 dark:text-gray-300">
