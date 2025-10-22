@@ -1,61 +1,66 @@
 "use client";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const MysticDragon = () => {
-  const controls = useAnimation();
-  const [isVisible, setIsVisible] = useState(true);
+  const [position, setPosition] = useState({ x: 0, y: 0, z: 0 });
+  const [rotation, setRotation] = useState({ x: 0, y: 0, z: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const animateDragon = async () => {
-      while (true) {
-        // Random start position
-        const startX = Math.random() * window.innerWidth;
-        const startY = Math.random() * window.innerHeight;
+    const animateDragon = () => {
+      // Show dragon
+      setIsVisible(true);
 
-        // Random end position
-        const endX = Math.random() * window.innerWidth;
-        const endY = Math.random() * window.innerHeight;
+      const animate = () => {
+        const time = Date.now() * 0.001; // Convert to seconds
 
-        // Calculate duration based on distance
-        const distance = Math.sqrt(
-          Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2)
-        );
-        const duration = (distance / 200) + 2; // Slower, more majestic
+        // 3D path - figure-8 pattern in 3D space
+        const radius = 300;
+        const x = Math.sin(time * 0.3) * radius + window.innerWidth / 2;
+        const y = Math.sin(time * 0.6) * 200 + window.innerHeight / 2;
+        const z = Math.sin(time * 0.4) * 100;
 
-        // Show dragon
-        setIsVisible(true);
+        // Dynamic rotation based on movement direction
+        const rotX = Math.sin(time * 0.5) * 20;
+        const rotY = Math.cos(time * 0.3) * 360;
+        const rotZ = Math.sin(time * 0.7) * 15;
 
-        // Move dragon
-        await controls.start({
-          x: [startX, endX],
-          y: [startY, endY],
-          opacity: [0, 1, 1, 0.7, 0],
-          scale: [0.5, 1, 1, 0.8, 0.5],
-          rotate: [0, 360],
-          transition: {
-            duration: duration,
-            ease: "easeInOut",
-          },
-        });
+        setPosition({ x, y, z });
+        setRotation({ x: rotX, y: rotY, z: rotZ });
 
-        // Hide and wait
-        setIsVisible(false);
-        await new Promise((resolve) => setTimeout(resolve, Math.random() * 5000 + 3000));
-      }
+        requestAnimationFrame(animate);
+      };
+
+      animate();
     };
 
     animateDragon();
-  }, [controls]);
+  }, []);
 
   return (
     <motion.div
-      animate={controls}
-      initial={{ opacity: 0 }}
       className="fixed pointer-events-none z-50"
       style={{
-        filter: "drop-shadow(0 0 20px rgba(139, 92, 246, 0.8))",
+        left: position.x,
+        top: position.y,
+        transform: `
+          perspective(1000px)
+          translateZ(${position.z}px)
+          rotateX(${rotation.x}deg)
+          rotateY(${rotation.y}deg)
+          rotateZ(${rotation.z}deg)
+        `,
+        filter: "drop-shadow(0 0 30px rgba(139, 92, 246, 0.8))",
+      }}
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        scale: isVisible ? 1 + position.z / 500 : 0,
+      }}
+      transition={{
+        opacity: { duration: 1 },
+        scale: { duration: 0.3 },
       }}
     >
       {isVisible && (
@@ -399,37 +404,46 @@ const MysticDragon = () => {
 
           {/* Electric particles */}
           <div className="absolute inset-0">
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-purple-400 rounded-full"
-                style={{
-                  left: `${50 + Math.cos((i / 8) * Math.PI * 2) * 40}%`,
-                  top: `${50 + Math.sin((i / 8) * Math.PI * 2) * 40}%`,
-                }}
-                animate={{
-                  scale: [0, 1.5, 0],
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  delay: i * 0.2,
-                }}
-              />
-            ))}
+            {[...Array(12)].map((_, i) => {
+              const angle = (i / 12) * Math.PI * 2;
+              const radius = 60;
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 rounded-full"
+                  style={{
+                    left: `${50 + Math.cos(angle) * radius}%`,
+                    top: `${50 + Math.sin(angle) * radius}%`,
+                    background: i % 3 === 0 ? '#FFD700' : i % 3 === 1 ? '#8B5CF6' : '#A78BFA',
+                  }}
+                  animate={{
+                    scale: [0, 2, 0],
+                    opacity: [0, 1, 0],
+                    x: [0, Math.cos(angle) * 20, 0],
+                    y: [0, Math.sin(angle) * 20, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: i * 0.15,
+                    ease: "easeInOut",
+                  }}
+                />
+              );
+            })}
           </div>
 
-          {/* Mystic trail */}
+          {/* Mystic trail with 3D effect */}
           <motion.div
-            className="absolute -inset-10 bg-gradient-radial from-purple-500/20 to-transparent rounded-full blur-xl"
+            className="absolute -inset-20 bg-gradient-radial from-purple-500/30 via-purple-400/10 to-transparent rounded-full blur-2xl"
             animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.6, 0.3],
+              scale: [1, 1.5, 1],
+              opacity: [0.4, 0.7, 0.4],
             }}
             transition={{
-              duration: 2,
+              duration: 3,
               repeat: Infinity,
+              ease: "easeInOut",
             }}
           />
         </div>
