@@ -2,68 +2,75 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { useRef, useState } from "react";
+import { FaGithub, FaExternalLinkAlt, FaPlay } from "react-icons/fa";
 import Image from "next/image";
 
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
 
   const projects = [
     {
-      title: "Virtual Assistant for FPT",
-      description: "Multimodal RAG-based AI Assistant on Jetson Orin with speech recognition, gesture and object recognition. Users can control services through natural voice commands.",
-      tech: ["FastAPI", "Gemini", "Vertex AI", "RAG", "NLP", "Computer Vision"],
-      image: "/image/vibe_code (1).jpg",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["Edge AI", "NLP", "Multimodal"],
+      title: "NVIDIA Lab Projects",
+      description: "Advanced AI projects on Jetson: Live LLaVA multimodal AI, OWL-ViT object detection, and NanoOWL for real-time vision tasks. Optimized with TensorRT for edge deployment.",
+      tech: ["LLaVA", "OWL-ViT", "NanoOWL", "TensorRT", "Jetson Orin"],
+      image: "/vibe_code (1).jpg",
+      videos: ["/live_LLaVA.mp4", "/OWL.mp4", "/OWL_terminal.mp4"],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["NVIDIA Lab", "LLM", "Vision"],
     },
     {
-      title: "Self-Driving Car",
-      description: "Autonomous vehicle with PID + SMC control, YOLO + Hough lane detection. Real-time inference on Jetson Nano with Arduino motor control.",
-      tech: ["Jetson Nano", "OpenCV", "PyTorch", "YOLO", "Unity"],
-      image: "/image/car_1.png",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["Autonomous", "Vision", "Control Theory"],
+      title: "Jetbot Chatbot on Jetson Orin Nano",
+      description: "Interactive AI chatbot running on Jetson Orin Nano with real-time voice interaction, natural language understanding, and multimodal capabilities.",
+      tech: ["Jetson Orin", "NLP", "Speech Recognition", "FastAPI"],
+      image: "/vibe_code (5).jpg",
+      videos: ["/chatbotonjetson.mp4"],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["Chatbot", "Edge AI", "NLP"],
     },
     {
-      title: "Drone Control System",
-      description: "Pixhawk 4, Jetson Orin Nano, GPS M9N autonomous system for human tracking, package delivery, and GPS-based navigation.",
+      title: "Self-Driving Car System",
+      description: "Autonomous vehicle with PID + SMC control, YOLO + Hough lane detection. Real-time inference on Jetson Nano with Arduino motor control. Includes simulation and UIT Racing competition vehicle.",
+      tech: ["Jetson Nano", "OpenCV", "PyTorch", "YOLO", "Unity", "Arduino"],
+      image: "/car_1.png",
+      videos: ["/bam_lane.mp4", "/xe_ute.mp4", "/uit_racingcar.mp4", "/mo_phong.mp4"],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["Autonomous", "Vision", "Control"],
+    },
+    {
+      title: "Jetbot NVIDIA Obstacle Avoidance",
+      description: "NVIDIA Jetbot with real-time obstacle detection and avoidance using deep learning. Optimized for edge deployment on Jetson Nano platform.",
+      tech: ["Jetson Nano", "Deep Learning", "Computer Vision", "ROS"],
+      image: "/car_2.jpg",
+      videos: ["/vat_can.mp4"],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["Robotics", "Jetbot", "Real-time"],
+    },
+    {
+      title: "Autonomous Drone System",
+      description: "Pixhawk 4, Jetson Orin Nano, GPS M9N autonomous system for human tracking, package delivery, and GPS-based navigation with computer vision.",
       tech: ["ROS2", "PX4", "Deep Learning", "GPS", "Computer Vision"],
-      image: "/image/drone_1.jpg",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["Robotics", "UAV", "Real-time"],
+      image: "/drone_1.jpg",
+      videos: [],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["UAV", "Robotics", "Navigation"],
     },
     {
-      title: "Bitcoin Forecasting (XAI)",
-      description: "Explainable AI for Bitcoin price prediction using XGBoost, LSTM, and SVM. Applied SHAP and LIME for model interpretability.",
-      tech: ["Python", "XGBoost", "LSTM", "SHAP", "LIME"],
-      image: "/image/car_2.jpg",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["XAI", "Finance", "Research"],
-    },
-    {
-      title: "Real-Time Video Processing",
-      description: "Deploy NanoLLM, NanoOWL, and OWL-ViT for object and text recognition. Optimized with TensorRT for Jetson Orin Nano with chatbot integration.",
-      tech: ["TensorRT", "NanoLLM", "Jetson Orin", "LLM"],
-      image: "/image/vibe_code (5).jpg",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["Edge AI", "LLM", "Vision"],
-    },
-    {
-      title: "Small Object Detection UAV",
-      description: "UAV-based small-object detection integrating BiFPN, C3Ghost, CBAM, and MPDIoU. Published in RTIS 2025 (Springer LNNS).",
-      tech: ["PyTorch", "YOLOv8", "BiFPN", "CBAM"],
-      image: "/image/drone_2.jpg",
-      github: "https://github.com/caophuc",
-      demo: "#",
-      badges: ["Research", "UAV", "Detection"],
+      title: "Small Object Detection for UAV",
+      description: "UAV-based small-object detection integrating BiFPN, C3Ghost, CBAM, and MPDIoU. Published in RTIS 2025 (Springer LNNS). Advanced research in aerial computer vision.",
+      tech: ["PyTorch", "YOLOv8", "BiFPN", "CBAM", "MPDIoU"],
+      image: "/drone_2.jpg",
+      videos: [],
+      github: "https://github.com/highptest1-36",
+      demo: "https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing",
+      badges: ["Research", "Published", "Detection"],
     },
   ];
 
@@ -112,15 +119,41 @@ const Projects = () => {
               whileHover={{ y: -10, transition: { duration: 0.3 } }}
               className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all group"
             >
-              {/* Project Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              {/* Project Image/Video */}
+              <div className="relative h-48 overflow-hidden bg-gray-900">
+                {playingVideo === index && project.videos.length > 0 ? (
+                  <video
+                    className="w-full h-full object-cover"
+                    controls
+                    autoPlay
+                    loop
+                    muted
+                  >
+                    <source src={project.videos[0]} type="video/mp4" />
+                  </video>
+                ) : (
+                  <>
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                    
+                    {/* Play button if videos available */}
+                    {project.videos.length > 0 && (
+                      <button
+                        onClick={() => setPlayingVideo(index)}
+                        className="absolute inset-0 flex items-center justify-center group/play"
+                      >
+                        <div className="w-16 h-16 bg-blue-500/80 rounded-full flex items-center justify-center group-hover/play:bg-blue-600 transition-colors backdrop-blur-sm">
+                          <FaPlay className="w-6 h-6 text-white ml-1" />
+                        </div>
+                      </button>
+                    )}
+                  </>
+                )}
                 
                 {/* Badges */}
                 <div className="absolute bottom-3 left-3 flex flex-wrap gap-2">
@@ -133,6 +166,13 @@ const Projects = () => {
                     </span>
                   ))}
                 </div>
+                
+                {/* Video count indicator */}
+                {project.videos.length > 1 && (
+                  <div className="absolute top-3 right-3 px-2 py-1 bg-black/70 text-white text-xs rounded-full backdrop-blur-sm">
+                    🎥 {project.videos.length} videos
+                  </div>
+                )}
               </div>
 
               {/* Project Content */}

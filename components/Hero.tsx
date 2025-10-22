@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const Hero = () => {
   const socialLinks = [
-    { icon: FaGithub, href: "https://github.com/caophuc", label: "GitHub" },
+    { icon: FaGithub, href: "https://github.com/highptest1-36", label: "GitHub" },
     { icon: FaLinkedin, href: "https://linkedin.com/in/caophuc", label: "LinkedIn" },
     { icon: FaGoogle, href: "https://scholar.google.com", label: "Google Scholar" },
     { icon: HiMail, href: "mailto:caophuc@example.com", label: "Email" },
@@ -79,6 +79,14 @@ const Hero = () => {
               View My Projects
             </Link>
             <a
+              href="https://docs.google.com/presentation/d/19NWa4nTCt2IAmD0TVgM--fJo68OnBvM6JPK58ysWoYQ/edit?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center gap-2"
+            >
+              📊 Project Resources
+            </a>
+            <a
               href="/Cao-Phuc-Ha-CV.pdf"
               download
               className="px-8 py-3 border-2 border-blue-500 text-blue-500 dark:text-blue-400 rounded-full font-semibold hover:bg-blue-500 hover:text-white transition-all flex items-center gap-2"
@@ -133,7 +141,7 @@ const Hero = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-3xl opacity-30 animate-pulse"></div>
             <div className="relative w-full aspect-square rounded-full overflow-hidden border-4 border-white dark:border-gray-800 shadow-2xl">
               <Image
-                src="/image/author1.jpg"
+                src="/author1.jpg"
                 alt="Cao Phúc Hà"
                 fill
                 className="object-cover"
